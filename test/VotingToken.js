@@ -19,10 +19,29 @@ describe("Token contract", () => {
       expect(await token.totalSupply()).to.equal(ownerBalance);
     });
     describe("Transactions", () => {
-        it("Should be able to transfer token", async()=>{
-            
-        })
+      it("Should be able to transfer token", async () => {
+        await token.transfer(addr1.address, 50);
+        const addr1Balance = await token.balanceOf(addr1.address);
+        expect(addr1Balance).to.equal(50);
 
+        await token.connect(addr1).transfer(addr2.address, 50);
+        const addr2Balance = await token.balanceOf(addr2.address);
+        expect(addr2Balance).to.equal(50);
+
+      });
+      it("Should Decrease the balance on casting the votes", async ()=>{
+        await token.transfer(addr1.address, 50);
+        const beforeBalance = await token.balanceOf(addr1.address);
+        await token.connect(addr1).castVotes(0);
+        const afterBalance = await token.balanceOf(addr1.address);
+
+        expect(afterBalance).to.equal(beforeBalance-1);
+      })
+      it("Should not be able to cast votes, if zero balance", async ()=>{
+        await expect(
+            token.connect(addr1).castVotes(0)
+          ).to.be.revertedWith("Not Enough Balance");
+      })
     });
   });
 });
