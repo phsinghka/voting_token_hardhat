@@ -1,13 +1,16 @@
-# Sample Hardhat Project
+# Voting Token with HardHat 👷‍♀️
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
+This project demonstrate the making of ERC20 token using Open Zeppelin Contracts.
+
+Project demonstrate how a token can be circulated and then used as a voting token
 
 Try running some of the following tasks:
 
 ```shell
-npx hardhat help
+//For accessing Chai Test File after Intalling HardHat
 npx hardhat test
-REPORT_GAS=true npx hardhat test
+
+//For Actually Deploying Contract on Hardhat Virtual Node
 npx hardhat node
-npx hardhat run scripts/deploy.js
+npx hardhat run scripts/deploy.js --network localhost
 ```
