@@ -28,6 +28,7 @@ contract VotingToken is ERC20 {
         _;
     }
 
+
     modifier onlyOwner(){
         require(msg.sender==owner,"Only Owner Can Call this function");
         _;
@@ -44,6 +45,7 @@ contract VotingToken is ERC20 {
 
 
     function castVotes(uint _position) public onlyEligibleVoter(msg.sender) ifOpen(){
+        require(_position<voting.positions.length, "The Positions Available to vote is from 0 - 4");
         transfer(address(this),1);
         uint currentPossitions = voting.positions[_position];
         currentPossitions +=1;

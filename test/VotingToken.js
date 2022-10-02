@@ -6,7 +6,7 @@ describe("Token contract", () => {
 
   beforeEach(async () => {
     Token = await ethers.getContractFactory("VotingToken");
-    token = await Token.deploy(1000);
+    token = await Token.deploy(1000,60);
     [owner, addr1, addr2, _] = await ethers.getSigners();
   });
   describe("Deployment", () => {
@@ -41,6 +41,9 @@ describe("Token contract", () => {
         await expect(
             token.connect(addr1).castVotes(0)
           ).to.be.revertedWith("Not Enough Balance");
+      })
+      it("Should throw Require when casting wrong vote", async()=>{
+        await expect(token.castVotes(5)).to.be.revertedWith("The Positions Available to vote is from 0 - 4")
       })
     });
   });
